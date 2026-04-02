@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Inter, Source_Serif_4 } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -8,24 +8,31 @@ import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.vercel.ai"),
-  title: "Next.js Chatbot Template",
-  description: "Next.js chatbot template using the AI SDK.",
+  title: "Form-Filling Assistant | Prototype",
+  description: "Form-Filling Assistant prototype using Agentic AI",
 };
 
 export const viewport = {
   maximumScale: 1,
 };
 
-const geist = Geist({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist",
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist-mono",
+  variable: "--font-source-serif",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600"],
+  variable: "--font-ibm-plex-mono",
 });
 
 const LIGHT_THEME_COLOR = "hsl(0 0% 100%)";
@@ -55,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={`${geist.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`}
       lang="en"
       suppressHydrationWarning
     >

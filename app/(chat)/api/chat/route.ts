@@ -20,6 +20,7 @@ import {
 } from "@/lib/ai/models";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
 import { getLanguageModel } from "@/lib/ai/providers";
+import { browseWebsite } from "@/lib/ai/tools/browse-website";
 import { createDocument } from "@/lib/ai/tools/create-document";
 import { editDocument } from "@/lib/ai/tools/edit-document";
 import { getWeather } from "@/lib/ai/tools/get-weather";
@@ -205,6 +206,7 @@ export async function POST(request: Request) {
                   "editDocument",
                   "updateDocument",
                   "requestSuggestions",
+                  "browseWebsite",
                 ],
           providerOptions: {
             ...(modelConfig?.gatewayOrder && {
@@ -232,6 +234,7 @@ export async function POST(request: Request) {
               dataStream,
               modelId: chatModel,
             }),
+            browseWebsite: browseWebsite({ dataStream }),
           },
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,
