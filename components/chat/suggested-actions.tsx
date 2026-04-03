@@ -5,59 +5,54 @@ import { motion } from "framer-motion";
 import { memo } from "react";
 import { suggestions } from "@/lib/constants";
 import type { ChatMessage } from "@/lib/types";
-import { Suggestion } from "../ai-elements/suggestion";
 import type { VisibilityType } from "./visibility-selector";
 
 type SuggestedActionsProps = {
   chatId: string;
-  sendMessage: UseChatHelpers<ChatMessage>["sendMessage"];
+  sendMessage:
+    | UseChatHelpers<ChatMessage>["sendMessage"]
+    | ((msg: { role: "user"; parts: { type: "text"; text: string }[] }) => void);
   selectedVisibilityType: VisibilityType;
 };
 
 function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
-  const suggestedActions = suggestions;
-
   return (
     <div
-      className="flex w-full gap-2.5 overflow-x-auto pb-1 sm:grid sm:grid-cols-2 sm:overflow-visible"
+      className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2"
       data-testid="suggested-actions"
-      style={{
-        scrollbarWidth: "none",
-        WebkitOverflowScrolling: "touch",
-        msOverflowStyle: "none",
-      }}
     >
-      {suggestedActions.map((suggestedAction, index) => (
-        <motion.div
+      {suggestions.map((item, index) => (
+        <motion.button
           animate={{ opacity: 1, y: 0 }}
-          className="min-w-[200px] shrink-0 sm:min-w-0 sm:shrink"
+          className="group rounded-xl border border-border/40 bg-background p-4 text-left transition-all hover:border-border hover:shadow-md"
           exit={{ opacity: 0, y: 16 }}
           initial={{ opacity: 0, y: 16 }}
-          key={suggestedAction}
+          key={item.title}
+          onClick={() => {
+            window.history.pushState(
+              {},
+              "",
+              `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/chat/${chatId}`
+            );
+            sendMessage({
+              role: "user",
+              parts: [{ type: "text", text: item.prompt }],
+            });
+          }}
           transition={{
             delay: 0.06 * index,
             duration: 0.4,
             ease: [0.22, 1, 0.36, 1],
           }}
+          type="button"
         >
-          <Suggestion
-            className="h-auto w-full whitespace-nowrap rounded-xl border border-border/50 bg-card/30 px-4 py-3 text-left text-[12px] leading-relaxed text-muted-foreground transition-all duration-200 sm:whitespace-normal sm:p-4 sm:text-[13px] hover:-translate-y-0.5 hover:bg-card/60 hover:text-foreground hover:shadow-[var(--shadow-card)]"
-            onClick={(suggestion) => {
-              window.history.pushState(
-                {},
-                "",
-                `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/chat/${chatId}`
-              );
-              sendMessage({
-                role: "user",
-                parts: [{ type: "text", text: suggestion }],
-              });
-            }}
-            suggestion={suggestedAction}
-          >
-            {suggestedAction}
-          </Suggestion>
-        </motion.div>
+          <h3 className="font-serif text-sm font-semibold text-foreground group-hover:text-primary">
+            {item.title}
+          </h3>
+          <p className="mt-1 font-sans text-xs text-muted-foreground">
+            {item.description}
+          </p>
+        </motion.button>
       ))}
     </div>
   );

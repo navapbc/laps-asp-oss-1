@@ -12,9 +12,35 @@ export const guestRegex = /^guest-\d+$/;
 
 export const DUMMY_PASSWORD = generateDummyPassword();
 
-export const suggestions = [
-  "What are the advantages of using Next.js?",
-  "Write code to demonstrate Dijkstra's algorithm",
-  "Help me write an essay about Silicon Valley",
-  "What is the weather in San Francisco?",
+export type SuggestionItem = {
+  title: string;
+  description: string;
+  prompt: string;
+};
+
+export const suggestions: SuggestionItem[] = [
+  {
+    title: "Start a SNAP application",
+    description: "for a new SNAP application",
+    prompt:
+      "I need to complete a SNAP application for a client. Can you help me fill out the form?",
+  },
+  {
+    title: "Multi-program enrollment",
+    description: "across multiple programs",
+    prompt:
+      "I have a client who needs help with multiple benefit programs. Where should we start?",
+  },
+  {
+    title: "Upload client documents",
+    description: "to auto-fill client data",
+    prompt:
+      "I'd like to upload client documents so the assistant can pre-fill the application fields.",
+  },
+  {
+    title: "Review an application",
+    description: "for an existing application",
+    prompt:
+      "I have an in-progress application that needs to be reviewed and completed. Can you help?",
+  },
 ];

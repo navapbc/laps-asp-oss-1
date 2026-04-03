@@ -58,6 +58,30 @@ export function ChatShell() {
   const stopRef = useRef(stop);
   stopRef.current = stop;
 
+  // Pick up a first message stored by the homepage and send it through
+  // the real useActiveChat sendMessage — same path as typing in the input.
+  const hasInitFromHomepage = useRef(false);
+  useEffect(() => {
+    if (hasInitFromHomepage.current) return;
+    const stored = sessionStorage.getItem("homepage-init-message");
+    if (stored) {
+      hasInitFromHomepage.current = true;
+      sessionStorage.removeItem("homepage-init-message");
+      const msg = JSON.parse(stored);
+
+      window.history.pushState(
+        {},
+        "",
+        `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/chat/${chatId}`
+      );
+
+      sendMessage({
+        role: msg.role as "user",
+        parts: msg.parts,
+      });
+    }
+  }, [chatId, sendMessage]);
+
   const prevChatIdRef = useRef(chatId);
   useEffect(() => {
     if (prevChatIdRef.current !== chatId) {

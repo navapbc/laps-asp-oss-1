@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  MessageSquareIcon,
   PanelLeftIcon,
   PenSquareIcon,
   TrashIcon,
@@ -76,8 +75,12 @@ export function AppSidebar({ user }: { user: User | undefined }) {
                   className="size-8 !px-0 items-center justify-center group-data-[collapsible=icon]:group-hover/logo:opacity-0"
                   tooltip="Chatbot"
                 >
-                  <Link href="/" onClick={() => setOpenMobile(false)}>
-                    <MessageSquareIcon className="size-4 text-sidebar-foreground/50" />
+                  <Link href="/home" onClick={() => setOpenMobile(false)}>
+                    <div className="flex size-5 items-center justify-center rounded bg-primary">
+                      <span className="font-serif text-[10px] font-bold leading-none text-primary-foreground">
+                        N
+                      </span>
+                    </div>
                   </Link>
                 </SidebarMenuButton>
                 <Tooltip>
