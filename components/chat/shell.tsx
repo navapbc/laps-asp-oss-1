@@ -62,7 +62,9 @@ export function ChatShell() {
   // the real useActiveChat sendMessage — same path as typing in the input.
   const hasInitFromHomepage = useRef(false);
   useEffect(() => {
-    if (hasInitFromHomepage.current) return;
+    if (hasInitFromHomepage.current) {
+      return;
+    }
     const stored = sessionStorage.getItem("homepage-init-message");
     if (stored) {
       hasInitFromHomepage.current = true;

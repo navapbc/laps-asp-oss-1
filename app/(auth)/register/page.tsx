@@ -1,9 +1,11 @@
 "use client";
 
+import { SparklesIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useActionState, useEffect, useState } from "react";
+
 import { AuthForm } from "@/components/chat/auth-form";
 import { SubmitButton } from "@/components/chat/submit-button";
 import { toast } from "@/components/chat/toast";
@@ -46,21 +48,30 @@ export default function Page() {
   };
 
   return (
-    <>
-      <h1 className="text-2xl font-semibold tracking-tight">Create account</h1>
-      <p className="text-sm text-muted-foreground">Get started for free</p>
-      <AuthForm action={handleSubmit} defaultEmail={email}>
-        <SubmitButton isSuccessful={isSuccessful}>Sign up</SubmitButton>
-        <p className="text-center text-[13px] text-muted-foreground">
-          {"Have an account? "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/login"
-          >
-            Sign in
-          </Link>
-        </p>
-      </AuthForm>
-    </>
+    <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-2 text-center">
+        <div className="mb-2 flex size-12 items-center justify-center rounded-xl bg-primary/10">
+          <SparklesIcon className="size-6 text-primary" />
+        </div>
+        <h1 className="font-serif text-2xl font-semibold tracking-tight">
+          Create account
+        </h1>
+        <p className="text-sm text-muted-foreground">Get started for free</p>
+      </div>
+      <div className="w-full">
+        <AuthForm action={handleSubmit} defaultEmail={email}>
+          <SubmitButton isSuccessful={isSuccessful}>Sign up</SubmitButton>
+          <p className="text-center text-[13px] text-muted-foreground">
+            {"Have an account? "}
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
+              href="/login"
+            >
+              Sign in
+            </Link>
+          </p>
+        </AuthForm>
+      </div>
+    </div>
   );
 }

@@ -17,7 +17,16 @@ export default function HomePage() {
   const chatIdRef = useRef(generateUUID());
 
   const sendMessage = useCallback(
-    (msg: { role: string; parts?: { type: string; text?: string; url?: string; name?: string; mediaType?: string }[] }) => {
+    (msg: {
+      role: string;
+      parts?: {
+        type: string;
+        text?: string;
+        url?: string;
+        name?: string;
+        mediaType?: string;
+      }[];
+    }) => {
       // Store the message for ChatShell to pick up and send through the real useActiveChat flow
       sessionStorage.setItem(
         "homepage-init-message",
@@ -82,9 +91,13 @@ export default function HomePage() {
             sendMessage={sendMessage as any}
             setAttachments={setAttachments}
             setInput={setInput}
-            setMessages={() => {}}
+            setMessages={() => {
+              console.log("setMessages");
+            }}
             status="ready"
-            stop={() => {}}
+            stop={() => {
+              console.log("stop");
+            }}
           />
         </div>
       </main>
