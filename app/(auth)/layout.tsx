@@ -1,7 +1,6 @@
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
-import { SparklesIcon, VercelIcon } from "@/components/chat/icons";
-import { Preview } from "@/components/chat/preview";
+import { ThemeToggle } from "../landing/theme-toggle";
 
 export default function AuthLayout({
   children,
@@ -9,35 +8,59 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-dvh w-screen bg-sidebar">
-      <div className="flex w-full flex-col bg-background p-8 xl:w-[600px] xl:shrink-0 xl:rounded-r-2xl xl:border-r xl:border-border/40 md:p-16">
+    <div className="flex min-h-dvh flex-col bg-background text-foreground">
+      {/* ─── Header ─── */}
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Link className="flex items-center gap-2.5" href="/landing">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-primary">
+              <span className="font-serif text-sm font-bold text-primary-foreground">
+                N
+              </span>
+            </div>
+            <span className="font-serif text-lg font-semibold text-foreground">
+              Form-Filling Assistant
+            </span>
+          </Link>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+          </div>
+        </div>
+      </header>
+
+      {/* ─── Back Link ─── */}
+      <div className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
         <Link
           className="flex w-fit items-center gap-1.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
-          href="/"
+          href="/home"
         >
           <ArrowLeftIcon className="size-3.5" />
           Back
         </Link>
-        <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-10">
-          <div className="flex flex-col gap-2">
-            <div className="mb-2 flex size-9 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground ring-1 ring-border/50">
-              <SparklesIcon size={14} />
-            </div>
-            {children}
-          </div>
-        </div>
       </div>
 
-      <div className="hidden flex-1 flex-col overflow-hidden pl-12 xl:flex">
-        <div className="flex items-center gap-1.5 pt-8 text-[13px] text-muted-foreground/50">
-          Powered by
-          <VercelIcon size={14} />
-          <span className="font-medium text-muted-foreground">AI Gateway</span>
+      {/* ─── Main Content ─── */}
+      <main className="flex flex-1 items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md">{children}</div>
+      </main>
+
+      {/* ─── Footer ─── */}
+      <footer className="border-t border-border/40 bg-background">
+        <div className="mx-auto flex max-w-7xl items-center justify-center px-4 py-6 sm:px-6 lg:px-8">
+          <p className="font-sans text-sm text-muted-foreground">
+            Built by{" "}
+            <a
+              className="text-primary underline underline-offset-2 transition-colors hover:text-primary/80"
+              href="https://www.navapbc.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Nava PBC
+            </a>{" "}
+            &middot; Open Source &middot; Public Interest Technology
+          </p>
         </div>
-        <div className="flex-1 pt-4">
-          <Preview />
-        </div>
-      </div>
+      </footer>
     </div>
   );
 }

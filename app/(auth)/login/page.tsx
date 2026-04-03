@@ -1,5 +1,6 @@
 "use client";
 
+import { SparklesIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -44,23 +45,32 @@ export default function Page() {
   };
 
   return (
-    <>
-      <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
-      <p className="text-sm text-muted-foreground">
-        Sign in to your account to continue
-      </p>
-      <AuthForm action={handleSubmit} defaultEmail={email}>
-        <SubmitButton isSuccessful={isSuccessful}>Sign in</SubmitButton>
-        <p className="text-center text-[13px] text-muted-foreground">
-          {"No account? "}
-          <Link
-            className="text-foreground underline-offset-4 hover:underline"
-            href="/register"
-          >
-            Sign up
-          </Link>
+    <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-2 text-center">
+        <div className="mb-2 flex size-12 items-center justify-center rounded-xl bg-primary/10">
+          <SparklesIcon className="size-6 text-primary" />
+        </div>
+        <h1 className="font-serif text-2xl font-semibold tracking-tight">
+          Welcome back
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Sign in to your account to continue
         </p>
-      </AuthForm>
-    </>
+      </div>
+      <div className="w-full">
+        <AuthForm action={handleSubmit} defaultEmail={email}>
+          <SubmitButton isSuccessful={isSuccessful}>Sign in</SubmitButton>
+          <p className="text-center text-[13px] text-muted-foreground">
+            {"No account? "}
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
+              href="/register"
+            >
+              Sign up
+            </Link>
+          </p>
+        </AuthForm>
+      </div>
+    </div>
   );
 }

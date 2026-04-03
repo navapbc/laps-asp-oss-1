@@ -1,6 +1,10 @@
+import { vertexAnthropic } from "@ai-sdk/google-vertex/anthropic";
 import { customProvider, gateway } from "ai";
 import { isTestEnvironment } from "../constants";
 import { titleModel } from "./models";
+
+export const webAutomationModel = vertexAnthropic("claude-sonnet-4-6");
+export const prepareStepModel = vertexAnthropic("claude-haiku-4-5");
 
 export const myProvider = isTestEnvironment
   ? (() => {

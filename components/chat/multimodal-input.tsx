@@ -399,6 +399,7 @@ function PureMultimodalInput({
         )}
 
       <input
+        aria-label="Upload files"
         className="pointer-events-none fixed -top-4 -left-4 size-0.5 opacity-0"
         multiple
         onChange={handleFileChange}
