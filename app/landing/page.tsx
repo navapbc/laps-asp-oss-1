@@ -50,7 +50,7 @@ export default function LandingPage() {
           <div className="hidden items-center gap-3 md:flex">
             <ThemeToggle />
             <Button asChild className="rounded-lg" size="lg">
-              <Link href="/">Launch App</Link>
+              <Link href="/home">Launch App</Link>
             </Button>
           </div>
 
@@ -84,7 +84,7 @@ export default function LandingPage() {
                 </a>
               ))}
               <Button asChild className="mt-2 w-full rounded-lg" size="lg">
-                <Link href="/">Launch App</Link>
+                <Link href="/home">Launch App</Link>
               </Button>
             </nav>
           </div>
@@ -112,7 +112,7 @@ export default function LandingPage() {
               </p>
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
                 <Button asChild className="rounded-lg px-8 text-base" size="lg">
-                  <Link href="/">Get Started</Link>
+                  <Link href="/home">Get Started</Link>
                 </Button>
                 <Button
                   asChild
